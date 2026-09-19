@@ -3,7 +3,7 @@
 #include <cstdint>
 
 #include "Colours.h"
-#include "debug.h"
+#include "../debug.h"
 
 enum Error
 {
@@ -124,7 +124,7 @@ int my_qsort( void* array, int nElem, size_t szElem, bool ( *Comp )( const void*
         } */
         // fprintf( stderr, HCYN "Starting a new loop\n" reset );
 
-        while ( Comp( ( char* ) array + Lind * szElem, ( char* ) array + middle * szElem ) && Lind < Rind && Lind != middle )
+        while ( Lind < Rind && Lind != middle && Comp( ( char* ) array + Lind * szElem, ( char* ) array + middle * szElem ) )
         {
             // fprintf( stderr, HCYN "Looking for Lind\n" reset );
             Lind++;
@@ -132,12 +132,12 @@ int my_qsort( void* array, int nElem, size_t szElem, bool ( *Comp )( const void*
         // fprintf( stderr, WHT "I found Lind = %d, moving to Rind, press Enter to continue:", Lind );
         // getchar();
 
-        while ( Comp( ( char* ) array + middle * szElem , ( char* ) array + Rind * szElem ) && Lind < Rind && Rind != middle )
+        while ( Rind != middle && Lind < Rind && Comp( ( char* ) array + middle * szElem , ( char* ) array + Rind * szElem ) )
         {
             // fprintf( stderr, HCYN "Looking for Rind\n" reset );
             Rind--;
         }
-        // fprintf ( stderr, WHT "I found Rind = %d and i'm going to swap" HRED " Lind = %d and Rind = %d " WHT " please, press Enter to continue:", Rind, Lind, Rind );
+        // fprintf ( stderr, WHT "I found Rind = %d and i'm going to swap" HRED " Lind = %d and Rind = %d " WHT " please, press Enter to continue:\n", Rind, Lind, Rind );
         // getchar();
         if ( Lind < Rind )
         {

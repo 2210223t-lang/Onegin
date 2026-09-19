@@ -1,7 +1,7 @@
 #ifndef COMP_H
 #define COMP_H
 
-bool cmpstringUP( const void* a, const void* b );
+bool cmpstringDOWN( const void* a, const void* b );
 bool cmpintUP( const void* a, const void* b );
 bool cmpcharUP( const void* a, const void* b );
 bool cmpshortUP( const void* a, const void* b );

@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <ctype.h>
+#include <assert.h>
+
+#include "../debug.h"
 
 #define EPSI 0.000001
 
@@ -30,11 +33,12 @@ bool cmplonglongUP( const void* a, const void* b )
     return ( *( long long* ) a <= *( long long* ) b ) ? true : false;
 }
 
-bool cmpstringUP( const void* a, const void* b )
+bool cmpstringDOWN( const void* a, const void* b )
 {
-    char* ptra = ( char* ) a;
-    char* ptrb = ( char* ) b;
-    bool result = false;
+    assert( a );
+    assert( b );
+    char* ptra = *( char** ) a;
+    char* ptrb = *( char** ) b;
 
     while ( *ptra != '\n' && *ptrb != '\n' && *ptra && *ptrb )
     {
@@ -42,46 +46,66 @@ bool cmpstringUP( const void* a, const void* b )
             ptra++;
         while ( *ptrb != '\n' && *ptrb && !isalpha( *ptrb ) )
             ptrb++;
-        if ( *( ptra++ ) != *( ptrb++ ) )
+
+        if ( *ptra == 0 || *ptrb == 0 )
+            return ( *ptra <= *ptrb ) ? true : false;
+        else if ( *ptra != *ptrb )
             return ( tolower( *ptra ) <= tolower( *ptrb ) ) ? true : false;
+        ptra++;
+        ptrb++;
     }
 
-    return ( *ptra <= *ptrb ) ? true : false;
+    return ( *ptra < *ptrb ) ? true : false;
 }
 
 bool cmpcharUP( const void* a, const void* b )
 {
     return ( *( const char* ) a <= *( const char* ) b ) ? true : false;
 }
-
+//TODO delete ptra++, leave only counta++ and countb++
 bool MC_PUSHKIN( const void* a, const void* b )
 {
-    char* ptra = ( char* ) a;
-    char* ptrb = ( char* ) b;
+    char* ptra = *( char** ) a;
+    char* ptrb = *( char** ) b;
     int counta = 0, countb = 0;
-
-    while ( *( ptra++ ) != '\n' )
-        counta++;
-    while ( *( ptrb++ ) != '\n' )
-        countb++;
-    ptra--;
-    ptrb--;
-    while ( counta-- > 0 && countb-- > 0 && !( *( ptra-- ) - *( ptrb-- ) ) )
+    fprintf( stderr, "%s - %s\n", ptra, ptrb );
+    while ( *ptra != '\n' || !( *ptra ) )
     {
-        while ( !isalpha( *( ptra-- ) ) )
-            counta--;
-        while ( !isalpha( *( ptrb-- ) ) )
-            countb--;
+        counta++;
+        ptra++;
+    }
+    while ( *ptrb != '\n' || !( *ptrb ) )
+    {
+        ptrb++;
+        countb++;
     }
 
-    ptra++;
-    ptrb++;
-
-    if ( counta < 0 )
+    while ( counta > 0 && countb > 0 && *ptra == *ptrb )
+    {
+        while ( !isalpha( *ptra ) && counta > 0 )
+        {
+            ptra--;
+            counta--;
+        }
+        while ( !isalpha( *ptrb ) && countb > 0 )
+        {
+            ptrb--;
+            countb--;
+        }
+        if ( counta > 0 && countb > 0 && isalpha( *ptra ) && isalpha( *ptrb ) && *ptra == *ptrb )
+        {
+            ptra--;
+            ptrb--;
+            counta--;
+            countb--;
+        }
+    }
+    if ( counta <= 0 )
         *ptra = 0;
-    if ( countb < 0 )
+    if ( countb <= 0 )
         *ptrb = 0;
-
-    return ( *ptra <= *ptrb ) ? true : false;
+    if ( *ptrb == 0 || *ptra == 0 )
+        return ( *ptra < *ptrb ) ? true : false;
+    return ( tolower( *ptra ) <= tolower( *ptrb ) ) ? true : false;
 
 }
