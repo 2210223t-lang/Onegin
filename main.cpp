@@ -12,23 +12,33 @@
 
 int main()
 {
-    FILE* text = fopen( "try.txt", "r" );
-    FILE* output = fopen( "draft.txt", "w" );
+    FILE* text = fopen( "pushkin.txt", "r" );
+    FILE* output = fopen( "output.txt", "w" );
     char* ind[ PUSH_LINE ] = {};
+    char* ind_backup[ PUSH_LINE ] = {};
 
-    int lines = ReadText( ind, PUSH_LINE, text );
+    int lines = ReadText_Separated( ind, PUSH_LINE, text );
     fclose( text );
+
+    for ( int i = 0; i < lines; i++ )
+        ind_backup[ i ] = ind[ i ];
+
+    my_qsort( ind, lines, sizeof( ind[ 0 ] ), cmpstringDOWN );
+
+    for ( int i = 0; i < lines; i++ )
+        fprintf( output, "%s", ind[ i ] );
 
     my_qsort( ind, lines, sizeof( ind[ 0 ] ), MC_PUSHKIN );
 
+    fprintf( output, VERSUSSTART );
+
     for ( int i = 0; i < lines; i++ )
-        printf( "%s", ind[ i ] );
+        fprintf( output, "%s", ind[ i ] );
 
+    fprintf( output, "\n------------\n" );
 
-
-    // fprintf( output, VERSUSSTART );
-
-    // my_qsort( ind, lines, sizeof( ind[ 0 ] ), MC_PUSHKIN );
+    for ( int i = 0; i < lines; i++ )
+        fprintf( output, "%s", ind_backup[ i ] );
 
     fclose( output );
     return 0;

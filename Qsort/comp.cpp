@@ -68,7 +68,7 @@ bool MC_PUSHKIN( const void* a, const void* b )
     char* ptra = *( char** ) a;
     char* ptrb = *( char** ) b;
     int counta = 0, countb = 0;
-    fprintf( stderr, "%s - %s\n", ptra, ptrb );
+
     while ( *ptra != '\n' || !( *ptra ) )
     {
         counta++;

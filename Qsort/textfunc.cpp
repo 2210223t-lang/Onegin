@@ -5,7 +5,7 @@
 #include "../debug.h"
 
 
-int ReadText( char **ind, size_t szInd, FILE* text )
+int ReadText_Separated( char **ind, size_t szInd, FILE* text )
 {
     size_t count = 0;
     int keepgoing = 0;
@@ -21,3 +21,4 @@ int ReadText( char **ind, size_t szInd, FILE* text )
     // fprintf( stderr, "Ended reading file\n" );
     return count;
 }
+
