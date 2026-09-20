@@ -1,8 +1,9 @@
 #include <cstddef>
 #include <stdio.h>
 #include <cstdint>
+#include <assert.h>
 
-#include "Colours.h"
+#include "../Colours.h"
 #include "../debug.h"
 
 enum Error
@@ -16,14 +17,18 @@ enum Error
 int CallRec( void* array, int nElem, size_t szElem, int status, int middle,
              int ( *Comp )( const void*, const void* ) );
 
-#define getchar() fprintf( stderr, HRED " There could be your getchar\n" reset )
+// #define getchar() fprintf( stderr, HRED " There could be your getchar\n" reset )
 
 /**
  * @brief Swap values of 2 variables a and b
  */
 void swap( size_t size, void* a, void* b )
 {
+    assert( a );
+    assert( b );
+
     uint64_t buff = 0;
+
     while ( size >= 8 && ( ( size_t ) a ) % 8 == 0 && ( ( size_t ) b ) % 8 == 0 )
     {
         buff = *( uint64_t* ) b;
@@ -65,6 +70,8 @@ void swap( size_t size, void* a, void* b )
  */
 int Status( double* array, int Lind, int Rind, int nElem, int middle )
 {
+    assert( array );
+
     if ( Lind > nElem )
         return LindLeapfrog;
     if ( Rind < 0 )
@@ -118,6 +125,8 @@ int Status( double* array, int Lind, int Rind, int nElem, int middle )
 
 int my_qsort( void* array, int nElem, size_t szElem, int ( *Comp )( const void*, const void* ) )
 {
+    assert( array );
+
     int middle = nElem / 2, Lind = 0, Rind = nElem - 1;
     int status = 0;
 
@@ -152,7 +161,6 @@ int my_qsort( void* array, int nElem, size_t szElem, int ( *Comp )( const void*,
         {
             // fprintf( stderr, "Changing [%d] <-> [%d]\n", Lind, Rind );
             // getchar();
-
             swap( szElem, ( char* ) array + Lind * szElem, ( char* ) array + Rind * szElem );
 
             if ( Lind == middle )
@@ -203,23 +211,27 @@ int my_qsort( void* array, int nElem, size_t szElem, int ( *Comp )( const void*,
 int CallRec( void* array, int nElem, size_t szElem, int status, int middle,
              int ( *Comp )( const void*, const void* ) )
 {
+    assert( array );
+
     // fprintf( stderr, HCYN "Starting new recursion level\n" reset );
     if ( status == Success && middle > 2 )
     {
         // fprintf( stderr, "Left root\n" );
         status = my_qsort( array, middle, szElem, Comp );
     }
-    else if ( status == Success && middle == 1 && Comp( array, ( char* ) array + 1 ) > 0 ) //< To enhance code speed, i check 2 - sized arrays manually
-        swap( szElem, array, ( char* ) array + 1 );
+    /// To enhance code speed, I check 2 - sized arrays manually
+    else if ( status == Success && middle == 2 && Comp( array, ( char* ) array + 1 * szElem ) > 0 )
+        swap( szElem, array, ( char* ) array + 1 * szElem );
 
-    if ( status == Success && nElem - middle - 1 > 2 )
+    if ( status == Success && nElem - middle - 1 > 1 )
     {
         // fprintf( stderr, "Right root\n" );
         status = my_qsort( ( char* ) array + ( middle + 1 ) * szElem, nElem - middle - 1, szElem, Comp );
     }
+    /// To enhance code speed, I check 2 - sized arrays manually
     else if (  status == Success && nElem - middle - 1 == 2 &&
-               Comp( ( char* ) array + nElem - 1, ( char* ) array + nElem - 2 ) > 0 ) //< To enhance code speed, i check 2 - sized arrays manually
-        swap( szElem, ( char* ) array + nElem - 1, ( char* ) array + nElem - 2 );
+               Comp( ( char* ) array + ( nElem - 1 ) * szElem, ( char* ) array + ( nElem - 2 ) * szElem ) > 0 )
+        swap( szElem, ( char* ) array + ( nElem - 1 ) * szElem, ( char* ) array + ( nElem - 2 ) * szElem );
 
     return status;
 }

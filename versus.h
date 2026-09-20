@@ -9,5 +9,9 @@
                      "To my left stands the risen legend, the ancestor of the Russian rap.\n"\
                      "Make some noise, cause it's Alexandr Pushkin!!!!\n"
 
-#define VERSUS_FINAL "Round, bitch\n"
+#define VERSUS_FINAL "Round, bitch\n\n"\
+                     "Public: WHOOOOAH"
+
+void PrintMicro( FILE* ostream );
+
 #endif //VERSUS_H

@@ -6,22 +6,30 @@
 
 #include "../debug.h"
 
+/// Holds info about some text, stored in string
 struct poem
 {
-    char* txt;
-    uint64_t cpp;
+    char* txt; //< Pointer to a beginning of text
+    uint64_t cpp; //< Size of useful data ( in bytes )
 };
 
+/// Defines inaccuracy for double and float comparing
 #define EPSI 0.000001
 
 
 int cmpintUP( const void* a, const void* b )
 {
+    assert( a );
+    assert( b );
+
     return *( int* ) a - *( int* ) b;
 }
 
 int cmpdoubleUP( const void* a, const void* b )
 {
+    assert( a );
+    assert( b );
+
     if ( fabs( *( double* ) a < *( double* ) b ) <= EPSI )
         return 0;
     return ( *( double* ) a < *( double* ) b + EPSI ) ? 1 : -1;
@@ -29,25 +37,46 @@ int cmpdoubleUP( const void* a, const void* b )
 
 int cmpfloatUP( const void* a, const void* b )
 {
-if ( fabs( *( float* ) a < *( float* ) b ) <= EPSI )
+    assert( a );
+    assert( b );
+
+    if ( fabs( *( float* ) a < *( float* ) b ) <= EPSI )
         return 0;
     return ( *( float* ) a < *( float* ) b + EPSI ) ? 1 : -1;
 }
 
 int cmpshortUP( const void* a, const void* b )
 {
+    assert( a );
+    assert( b );
+
     return *( short* ) a - *( short* ) b;
 }
 
 int cmplonglongUP( const void* a, const void* b )
 {
+    assert( a );
+    assert( b );
+
     return ( *( long long* ) a - *( long long* ) b ) / INT32_MAX; //< I divide to avoid ( int ) varible overflow
 }
 
+/**
+ * @brief Compares 2 strings, which ends with '\0' or '\n'
+ *
+ * @param a string
+ *
+ * @param b string
+ *
+ * @warning This function ignore all symbols, except of letters
+ *
+ * @return 0 if ( a == b ), x > 0 if ( a > b ), x < 0 if ( a < b )
+ */
 int cmpstringDOWN( const void* a, const void* b )
 {
     assert( a );
     assert( b );
+
     char* ptra = *( char** ) a;
     char* ptrb = *( char** ) b;
 
@@ -69,10 +98,14 @@ int cmpstringDOWN( const void* a, const void* b )
     return *ptra - *ptrb;
 }
 
+/**
+ * @brief cmpstringDOWN function, which takes ( struct poem ) variables
+ */
 int cmpstringDOWN_poem( const void* a, const void* b )
 {
     assert( a );
     assert( b );
+
     char* ptra = ( *( ( poem* ) a ) ).txt;
     char* ptrb = ( *( ( poem* ) b ) ).txt;
     uint64_t sizea = ( *( ( poem* ) a ) ).cpp - 1;
@@ -108,6 +141,9 @@ int cmpcharUP( const void* a, const void* b )
 
 int MC_PUSHKIN( const void* a, const void* b )
 {
+    assert( a );
+    assert( b );
+
     char* ptra = *( char** ) a;
     char* ptrb = *( char** ) b;
     int counta = 0, countb = 0;
@@ -152,8 +188,14 @@ int MC_PUSHKIN( const void* a, const void* b )
     return tolower( *ptra ) - tolower( *ptrb );
 }
 
+/**
+ * @brief Compares string part of a and b ( struct poem ) variables from the last letter
+ */
 int MC_PUSHKIN_poem( const void* a, const void* b )
 {
+    assert( a );
+    assert( b );
+
     char* ptra = ( *( ( poem* ) a ) ).txt;
     char* ptrb = ( *( ( poem* ) b ) ).txt;
     uint64_t sizea = ( *( ( poem* ) a ) ).cpp;

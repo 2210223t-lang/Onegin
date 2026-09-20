@@ -4,14 +4,16 @@
 
 #include "Qsort/Qsort.h"
 #include "debug.h"
-#include "Qsort/textfunc.h"
+#include "textfunc.h"
 #include "Qsort/comp.h"
 #include "versus.h"
-#include "Qsort/Colours.h"
+#include "Colours.h"
 
 
 void puts_my( const char* a, FILE* ostream )
 {
+    assert( ostream );
+
     while ( *a != '\n' && *a )
         putc( *( a++ ), ostream );
     putc( '\n', ostream );
@@ -19,6 +21,9 @@ void puts_my( const char* a, FILE* ostream )
 
 void Print_poem( poem* lines, uint64_t size, FILE* ostream )
 {
+    assert( lines );
+    assert( ostream );
+
     for ( int i = 0; i < size; i++ )
         puts_my( lines[ i ].txt, ostream );
 }
@@ -37,13 +42,15 @@ int main()
     // fprintf( stderr, "Passed 1st my_qsort\n" );
     Print_poem( lines, count, output );
     // fprintf( stderr, "Printed 1st text into output.txt\n" );
-    fprintf( output, HCYN VERSUS_START reset );
+    fprintf( output, VERSUS_START );
+
+    PrintMicro( output );
 
     qsort( lines, count, sizeof( poem ), MC_PUSHKIN_poem );
     // fprintf( stderr, "Passed std qsort\n" );
     Print_poem( lines, count, output );
     // fprintf( stderr, "Printed 2nd text into output.txt\n" );
-    fprintf( output, HCYN VERSUS_FINAL reset );
+    fprintf( output, VERSUS_FINAL );
 
     fprintf( output, "\n-----\n\n" );
 

@@ -7,7 +7,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "../debug.h"
+#include "debug.h"
 #include "Colours.h"
 
 struct poem
@@ -49,6 +49,7 @@ int CountLines( struct poem text )
  */
 int ReadText_Separated( char **ind, size_t szInd, const char* filename )
 {
+    assert( ind );
     size_t count = 0;
     int keepgoing = 0;
     FILE* istream = fopen( filename, "r" );
@@ -94,7 +95,7 @@ struct poem ReadText_Buff( const char* filename )
     text.cpp = read( istream, text.txt, text.cpp );
 
     close( istream );
-    fprintf( stderr, HRED "Ended reading text with %llu symbols\n" reset, text.cpp );
+    // fprintf( stderr, HRED "Ended reading text with %llu symbols\n" reset, text.cpp );
     return text;
 }
 
@@ -125,6 +126,6 @@ struct poem* Sort( struct poem text )
         }
         temp += size;
     }
-    fprintf( stderr, HRED "Ended sorting text and returned %d lines\n" reset, real );
+    // fprintf( stderr, HRED "Ended sorting text and returned %d lines\n" reset, real );
     return lines;
 }
