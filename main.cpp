@@ -11,39 +11,45 @@
 #define PUSH_LINE 3
 
 
+void puts_my( const char* a, FILE* ostream )
+{
+    while ( *a != '\n' && *a )
+        putc( *( a++ ), ostream );
+    putc( '\n', ostream );
+}
+
+void Print_poem( poem* lines, uint64_t size, FILE* ostream )
+{
+    for ( int i = 0; i < size; i++ )
+        puts_my( lines[ i ].txt, ostream );
+}
+
 int main()
 {
-    FILE* text = fopen( "pushkin.txt", "r" );
-    assert( text );
     FILE* output = fopen( "output.txt", "w" );
     assert( output );
 
-    char* ind[ PUSH_LINE ] = {};
-    char* ind_backup[ PUSH_LINE ] = {};
+    struct poem line = ReadText_Buff( "pushkin.txt" );
+    struct poem* lines = Sort( line );
+    int count = CountLines( line );
+    fprintf( stderr, "Count = %d\n", count );
+    $RT
+    my_qsort( lines, count, sizeof( poem ), cmpstringDOWN_poem );
+    fprintf( stderr, "Passed 1st my_qsort\n" );
+    Print_poem( lines, count, output );
+    fprintf( stderr, "Printed 1st text into output.txt\n" );
+    fprintf( output, VERSUS_START );
 
-    int lines = ReadText_Separated( ind, PUSH_LINE, text );
-    fclose( text );
+    qsort( lines, count, sizeof( poem ), MC_PUSHKIN_poem );
+    fprintf( stderr, "Passed std qsort\n" );
+    Print_poem( lines, count, output );
+    fprintf( stderr, "Printed 2nd text into output.txt\n" );
+    fprintf( output, VERSUS_FINAL );
 
-    for ( int i = 0; i < lines; i++ )
-        ind_backup[ i ] = ind[ i ];
+    fprintf( output, "\n-----\n\n" );
 
-    my_qsort( ind, lines, sizeof( ind[ 0 ] ), cmpstringDOWN );
-
-    for ( int i = 0; i < lines; i++ )
-        fprintf( output, "%s", ind[ i ] );
-
-    my_qsort( ind, lines, sizeof( ind[ 0 ] ), MC_PUSHKIN );
-
-    fprintf( output, VERSUSSTART );
-
-    for ( int i = 0; i < lines; i++ )
-        fprintf( output, "%s", ind[ i ] );
-
-    fprintf( output, "\n------------\n" );
-
-    for ( int i = 0; i < lines; i++ )
-        fprintf( output, "%s", ind_backup[ i ] );
-
+    fprintf( output, "%s", line.txt );
+    fprintf( stderr, "Printed original text" );
     fclose( output );
     return 0;
 }

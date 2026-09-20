@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <stdio.h>
 #include <math.h>
 #include <ctype.h>
@@ -5,35 +6,45 @@
 
 #include "../debug.h"
 
+struct poem
+{
+    char* txt;
+    uint64_t cpp;
+};
+
 #define EPSI 0.000001
 
 
-bool cmpintUP( const void* a, const void* b )
+int cmpintUP( const void* a, const void* b )
 {
-    return ( *( int* ) a <= *( int* ) b ) ? true : false;
+    return *( int* ) a - *( int* ) b;
 }
 
-bool cmpdoubleUP( const void* a, const void* b )
+int cmpdoubleUP( const void* a, const void* b )
 {
-    return ( *( double* ) a <= *( double* ) b + EPSI ) ? true : false;
+    if ( fabs( *( double* ) a < *( double* ) b ) <= EPSI )
+        return 0;
+    return ( *( double* ) a < *( double* ) b + EPSI ) ? 1 : -1;
 }
 
-bool cmpfloatUP( const void* a, const void* b )
+int cmpfloatUP( const void* a, const void* b )
 {
-    return( *( float* ) a <= *( float* ) b + EPSI ) ? true : false;
+if ( fabs( *( float* ) a < *( float* ) b ) <= EPSI )
+        return 0;
+    return ( *( float* ) a < *( float* ) b + EPSI ) ? 1 : -1;
 }
 
-bool cmpshortUP( const void* a, const void* b )
+int cmpshortUP( const void* a, const void* b )
 {
-    return ( *( short* ) a <= *( short* ) b ) ? true : false;
+    return *( short* ) a - *( short* ) b;
 }
 
-bool cmplonglongUP( const void* a, const void* b )
+int cmplonglongUP( const void* a, const void* b )
 {
-    return ( *( long long* ) a <= *( long long* ) b ) ? true : false;
+    return ( *( long long* ) a - *( long long* ) b ) / INT32_MAX; //< I divide to avoid ( int ) varible overflow
 }
 
-bool cmpstringDOWN( const void* a, const void* b )
+int cmpstringDOWN( const void* a, const void* b )
 {
     assert( a );
     assert( b );
@@ -48,22 +59,55 @@ bool cmpstringDOWN( const void* a, const void* b )
             ptrb++;
 
         if ( *ptra == 0 || *ptrb == 0 )
-            return ( *ptra <= *ptrb ) ? true : false;
+            return *ptra - *ptrb;
         else if ( *ptra != *ptrb )
-            return ( tolower( *ptra ) <= tolower( *ptrb ) ) ? true : false;
+            return tolower( *ptra ) - tolower( *ptrb );
         ptra++;
         ptrb++;
     }
 
-    return ( *ptra < *ptrb ) ? true : false;
+    return *ptra - *ptrb;
 }
 
-bool cmpcharUP( const void* a, const void* b )
+int cmpstringDOWN_poem( const void* a, const void* b )
 {
-    return ( *( const char* ) a <= *( const char* ) b ) ? true : false;
+    assert( a );
+    assert( b );
+    char* ptra = ( *( ( poem* ) a ) ).txt;
+    char* ptrb = ( *( ( poem* ) b ) ).txt;
+    uint64_t sizea = ( *( ( poem* ) a ) ).cpp - 1;
+    uint64_t sizeb = ( *( ( poem* ) b ) ).cpp - 1;
+
+    while ( sizea > 0 && sizeb > 0 )
+    {
+        while ( sizea > 0 && !isalpha( *ptra ) )
+        {
+            sizea--;
+            ptra++;
+        }
+        while ( sizeb > 0 && !isalpha( *ptrb ) )
+        {
+            sizeb--;
+            ptrb++;
+        }
+        if ( !sizea || !sizeb )
+            return *ptra - *ptrb;
+        else if ( *ptra != *ptrb )
+            return tolower( *ptra ) - tolower( *ptrb );
+        ptra++;
+        ptrb++;
+    }
+
+    return *ptra - *ptrb;
 }
+
+int cmpcharUP( const void* a, const void* b )
+{
+    return *( const char* ) a - *( const char* ) b;
+}
+
 //TODO delete ptra++, leave only counta++ and countb++
-bool MC_PUSHKIN( const void* a, const void* b )
+int MC_PUSHKIN( const void* a, const void* b )
 {
     char* ptra = *( char** ) a;
     char* ptrb = *( char** ) b;
@@ -105,7 +149,34 @@ bool MC_PUSHKIN( const void* a, const void* b )
     if ( countb <= 0 )
         *ptrb = 0;
     if ( *ptrb == 0 || *ptra == 0 )
-        return ( *ptra < *ptrb ) ? true : false;
-    return ( tolower( *ptra ) <= tolower( *ptrb ) ) ? true : false;
+        return *ptra - *ptrb;
+    return tolower( *ptra ) - tolower( *ptrb );
+}
 
+int MC_PUSHKIN_poem( const void* a, const void* b )
+{
+    char* ptra = ( *( ( poem* ) a ) ).txt;
+    char* ptrb = ( *( ( poem* ) b ) ).txt;
+    uint64_t sizea = ( *( ( poem* ) a ) ).cpp;
+    uint64_t sizeb = ( *( ( poem* ) b ) ).cpp;
+
+
+    while ( sizea > 0 && sizeb > 0 && *( ptra + sizea ) == *( ptrb + sizeb ) )
+    {
+        while ( !isalpha( *( ptra + sizea ) ) && sizea > 0 )
+            sizea--;
+
+        while ( !isalpha( *( ptrb + sizeb ) ) && sizeb > 0 )
+            sizeb--;
+
+        if ( sizea > 0 && sizeb > 0 && isalpha( *( ptra + sizea ) ) && isalpha( *( ptrb + sizeb ) ) && *( ptra + sizea ) == *( ptrb + sizeb ) )
+        {
+            sizea--;
+            sizeb--;
+        }
+    }
+
+    if ( sizea <= 0 || sizeb <= 0 )
+        return *( ptra + sizea ) - *( ptrb + sizeb );
+    return tolower( *( ptra + sizea ) ) - tolower( *( ptrb + sizeb ) );
 }

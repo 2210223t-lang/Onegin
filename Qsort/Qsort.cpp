@@ -108,7 +108,7 @@ int Status( double* array, int Lind, int Rind, int nElem, int middle )
     return Success;
 }
 
-int my_qsort( void* array, int nElem, size_t szElem, bool ( *Comp )( const void*, const void* ) )
+int my_qsort( void* array, int nElem, size_t szElem, int ( *Comp )( const void*, const void* ) )
 {
     // fprintf( stderr, HCYN "Starting new recursion level\n" reset );
     int middle = nElem / 2, Lind = 0, Rind = nElem - 1;
@@ -124,7 +124,7 @@ int my_qsort( void* array, int nElem, size_t szElem, bool ( *Comp )( const void*
         } */
         // fprintf( stderr, HCYN "Starting a new loop\n" reset );
 
-        while ( Lind < Rind && Lind != middle && Comp( ( char* ) array + Lind * szElem, ( char* ) array + middle * szElem ) )
+        while ( Lind < Rind && Lind != middle && Comp( ( char* ) array + Lind * szElem, ( char* ) array + middle * szElem ) <= 0 )
         {
             // fprintf( stderr, HCYN "Looking for Lind\n" reset );
             Lind++;
@@ -132,7 +132,7 @@ int my_qsort( void* array, int nElem, size_t szElem, bool ( *Comp )( const void*
         // fprintf( stderr, WHT "I found Lind = %d, moving to Rind, press Enter to continue:", Lind );
         // getchar();
 
-        while ( Rind != middle && Lind < Rind && Comp( ( char* ) array + middle * szElem , ( char* ) array + Rind * szElem ) )
+        while ( Rind != middle && Lind < Rind && Comp( ( char* ) array + middle * szElem , ( char* ) array + Rind * szElem ) <= 0 )
         {
             // fprintf( stderr, HCYN "Looking for Rind\n" reset );
             Rind--;
