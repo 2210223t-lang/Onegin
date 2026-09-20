@@ -106,7 +106,6 @@ int cmpcharUP( const void* a, const void* b )
     return *( const char* ) a - *( const char* ) b;
 }
 
-//TODO delete ptra++, leave only counta++ and countb++
 int MC_PUSHKIN( const void* a, const void* b )
 {
     char* ptra = *( char** ) a;

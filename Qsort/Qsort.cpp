@@ -13,9 +13,14 @@ enum Error
     Success = 0,
 };
 
+int CallRec( void* array, int nElem, size_t szElem, int status, int middle,
+             int ( *Comp )( const void*, const void* ) );
+
 #define getchar() fprintf( stderr, HRED " There could be your getchar\n" reset )
 
-
+/**
+ * @brief Swap values of 2 variables a and b
+ */
 void swap( size_t size, void* a, void* b )
 {
     uint64_t buff = 0;
@@ -55,6 +60,9 @@ void swap( size_t size, void* a, void* b )
     }
 }
 
+/**
+ * @brief Debugging function which print current position of Lind, Ring and Middle elements
+ */
 int Status( double* array, int Lind, int Rind, int nElem, int middle )
 {
     if ( Lind > nElem )
@@ -110,7 +118,6 @@ int Status( double* array, int Lind, int Rind, int nElem, int middle )
 
 int my_qsort( void* array, int nElem, size_t szElem, int ( *Comp )( const void*, const void* ) )
 {
-    // fprintf( stderr, HCYN "Starting new recursion level\n" reset );
     int middle = nElem / 2, Lind = 0, Rind = nElem - 1;
     int status = 0;
 
@@ -124,6 +131,7 @@ int my_qsort( void* array, int nElem, size_t szElem, int ( *Comp )( const void*,
         } */
         // fprintf( stderr, HCYN "Starting a new loop\n" reset );
 
+        /// Looking for Left uncorrect element
         while ( Lind < Rind && Lind != middle && Comp( ( char* ) array + Lind * szElem, ( char* ) array + middle * szElem ) <= 0 )
         {
             // fprintf( stderr, HCYN "Looking for Lind\n" reset );
@@ -132,6 +140,7 @@ int my_qsort( void* array, int nElem, size_t szElem, int ( *Comp )( const void*,
         // fprintf( stderr, WHT "I found Lind = %d, moving to Rind, press Enter to continue:", Lind );
         // getchar();
 
+        /// Looking for right bad element
         while ( Rind != middle && Lind < Rind && Comp( ( char* ) array + middle * szElem , ( char* ) array + Rind * szElem ) <= 0 )
         {
             // fprintf( stderr, HCYN "Looking for Rind\n" reset );
@@ -168,18 +177,49 @@ int my_qsort( void* array, int nElem, size_t szElem, int ( *Comp )( const void*,
     // status = Status( ( double* ) array, Lind, Rind, nElem, middle );
     // fprintf( stderr, WHT "---------------\n" );
     // getchar();
-    if ( status == Success && middle > 1 )
-    {
-        // fprintf( stderr, "Left root\n" );
-        status = my_qsort( array, middle, szElem, Comp );
-    }
-    if ( status == Success && nElem - middle - 1 > 1 )
-    {
-        // fprintf( stderr, "Right root\n" );
-        status = my_qsort( ( char* ) array + ( middle + 1 ) * szElem, nElem - middle - 1, szElem, Comp );
-    }
+
+    status = CallRec( array, nElem, szElem, status, middle, Comp );
 
     return status;
 }
 
-//TODO learn about emulator
+/**
+ * @brief Is an extracted recursion call from my_qsort
+ *
+ * @param array void* pointer to a sorting part of the array
+ *
+ * @param nElem int Amount of sorting elements
+ *
+ * @param szElem size_t Size in bytes of a single variable in array
+ *
+ * @param status int Stores current status of pogramm
+ *
+ * @param middle int Stores koef of the middle element
+ *
+ * @param Comp Pointer to a comparing function
+ *
+ * @return Status of exit
+ */
+int CallRec( void* array, int nElem, size_t szElem, int status, int middle,
+             int ( *Comp )( const void*, const void* ) )
+{
+    // fprintf( stderr, HCYN "Starting new recursion level\n" reset );
+    if ( status == Success && middle > 2 )
+    {
+        // fprintf( stderr, "Left root\n" );
+        status = my_qsort( array, middle, szElem, Comp );
+    }
+    else if ( status == Success && middle == 1 && Comp( array, ( char* ) array + 1 ) > 0 ) //< To enhance code speed, i check 2 - sized arrays manually
+        swap( szElem, array, ( char* ) array + 1 );
+
+    if ( status == Success && nElem - middle - 1 > 2 )
+    {
+        // fprintf( stderr, "Right root\n" );
+        status = my_qsort( ( char* ) array + ( middle + 1 ) * szElem, nElem - middle - 1, szElem, Comp );
+    }
+    else if (  status == Success && nElem - middle - 1 == 2 &&
+               Comp( ( char* ) array + nElem - 1, ( char* ) array + nElem - 2 ) > 0 ) //< To enhance code speed, i check 2 - sized arrays manually
+        swap( szElem, ( char* ) array + nElem - 1, ( char* ) array + nElem - 2 );
+
+    return status;
+}

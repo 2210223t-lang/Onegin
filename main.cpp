@@ -7,8 +7,7 @@
 #include "Qsort/textfunc.h"
 #include "Qsort/comp.h"
 #include "versus.h"
-
-#define PUSH_LINE 3
+#include "Qsort/Colours.h"
 
 
 void puts_my( const char* a, FILE* ostream )
@@ -32,24 +31,27 @@ int main()
     struct poem line = ReadText_Buff( "pushkin.txt" );
     struct poem* lines = Sort( line );
     int count = CountLines( line );
-    fprintf( stderr, "Count = %d\n", count );
-    $RT
+    // fprintf( stderr, "Count = %d\n", count );
+
     my_qsort( lines, count, sizeof( poem ), cmpstringDOWN_poem );
-    fprintf( stderr, "Passed 1st my_qsort\n" );
+    // fprintf( stderr, "Passed 1st my_qsort\n" );
     Print_poem( lines, count, output );
-    fprintf( stderr, "Printed 1st text into output.txt\n" );
-    fprintf( output, VERSUS_START );
+    // fprintf( stderr, "Printed 1st text into output.txt\n" );
+    fprintf( output, HCYN VERSUS_START reset );
 
     qsort( lines, count, sizeof( poem ), MC_PUSHKIN_poem );
-    fprintf( stderr, "Passed std qsort\n" );
+    // fprintf( stderr, "Passed std qsort\n" );
     Print_poem( lines, count, output );
-    fprintf( stderr, "Printed 2nd text into output.txt\n" );
-    fprintf( output, VERSUS_FINAL );
+    // fprintf( stderr, "Printed 2nd text into output.txt\n" );
+    fprintf( output, HCYN VERSUS_FINAL reset );
 
     fprintf( output, "\n-----\n\n" );
 
     fprintf( output, "%s", line.txt );
-    fprintf( stderr, "Printed original text" );
+    // fprintf( stderr, "Printed original text" );
+
+    free( line.txt );
+    free( lines );
     fclose( output );
     return 0;
 }
