@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['print_5ffrag_0',['Print_frag',['../main_8cpp.html#a6e9933cf4d487a33ef04df32f5744e3b',1,'main.cpp']]],
-  ['printmicro_1',['PrintMicro',['../versus_8cpp.html#a5d020156464da04e19de1a0ebbe71e3c',1,'versus.cpp']]],
-  ['push_5fline_2',['PUSH_LINE',['../draft_8cpp.html#aa428c59bbee403d906ccfc415511689a',1,'draft.cpp']]],
-  ['puts_5fmy_3',['puts_my',['../main_8cpp.html#a3cc254d608baf3d0ea41fdf6a0e79e9d',1,'main.cpp']]]
+  ['debug_2ecpp_0',['debug.cpp',['../debug_8cpp.html',1,'']]],
+  ['debug_2eh_1',['debug.h',['../debug_8h.html',1,'']]],
+  ['divide_2',['Divide',['../textfunc_8cpp.html#af709906bcd1ebf37782eab8b18a08a78',1,'Divide(struct poem text):&#160;textfunc.cpp'],['../textfunc_8h.html#af709906bcd1ebf37782eab8b18a08a78',1,'Divide(struct poem text):&#160;textfunc.cpp']]],
+  ['draft_2ecpp_3',['draft.cpp',['../draft_8cpp.html',1,'']]]
 ];

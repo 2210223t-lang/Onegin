@@ -20,11 +20,11 @@ int main()
         return 0;
     }
 
-    struct frag line = ReadText_Buff( "pushkin.txt" );
-    struct frag* lines = Sort( line );
+    struct poem line = ReadText_Buff( "pushkin.txt" );
+    struct frag* lines = Divide( line );
     int count = CountLines( line );
 
-    // fprintf( stderr, "Count = %d\n", count );
+    fprintf( stderr, "Count = %d\n", count );
 
     my_qsort( lines, count, sizeof( frag ), cmpstringDOWN_frag );
     // fprintf( stderr, "Passed 1st my_qsort\n" );
@@ -41,7 +41,7 @@ int main()
     fprintf( ostream, VERSUS_FINAL );
 
     fprintf( ostream, "%s", line.txt );
-    // fprintf( stderr, "Printed original text" );
+    fprintf( stderr, "Printed original text" );
 
     free( line.txt );
     free( lines );

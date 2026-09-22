@@ -9,8 +9,8 @@
 /// Holds info about some text, stored in string
 struct frag
 {
-    char* txt; //< Pointer to a beginning of text
-    uint64_t cpp; //< Size of useful data ( in bytes )
+    char* begin; //< Pointer to a beginning of text
+    char* end; //< Pointer to the end of the text
 };
 
 /// Defines inaccuracy for double and float comparing
@@ -106,32 +106,27 @@ int cmpstringDOWN_frag( const void* a, const void* b )
     assert( a );
     assert( b );
 
-    char* ptra = ( *( ( frag* ) a ) ).txt;
-    char* ptrb = ( *( ( frag* ) b ) ).txt;
-    uint64_t sizea = ( *( ( frag* ) a ) ).cpp - 1;
-    uint64_t sizeb = ( *( ( frag* ) b ) ).cpp - 1;
+    char* bega = ( *( ( frag* ) a ) ).begin;
+    char* begb = ( *( ( frag* ) b ) ).begin;
+    char* enda = ( *( ( frag* ) a ) ).end;
+    char* endb = ( *( ( frag* ) b ) ).end;
 
-    while ( sizea > 0 && sizeb > 0 )
+    while ( enda > bega && endb > begb )
     {
-        while ( sizea > 0 && !isalpha( *ptra ) )
-        {
-            sizea--;
-            ptra++;
-        }
-        while ( sizeb > 0 && !isalpha( *ptrb ) )
-        {
-            sizeb--;
-            ptrb++;
-        }
-        if ( !sizea || !sizeb )
-            return *ptra - *ptrb;
-        else if ( *ptra != *ptrb )
-            return tolower( *ptra ) - tolower( *ptrb );
-        ptra++;
-        ptrb++;
+        while ( enda >= bega && !isalpha( *bega ) )
+            bega++;
+        while ( endb >= begb && !isalpha( *begb ) )
+            begb++;
+
+        if ( enda == bega || endb == begb )
+            return *bega - *bega;
+        else if ( *bega != *begb )
+            return tolower( *bega ) - tolower( *begb );
+        bega++;
+        begb++;
     }
 
-    return *ptra - *ptrb;
+    return *bega - *begb;
 }
 
 int cmpcharUP( const void* a, const void* b )
@@ -196,31 +191,31 @@ int MC_PUSHKIN_frag( const void* a, const void* b )
     assert( a );
     assert( b );
 
-    char* ptra = ( *( ( frag* ) a ) ).txt;
-    char* ptrb = ( *( ( frag* ) b ) ).txt;
-    uint64_t sizea = ( *( ( frag* ) a ) ).cpp;
-    uint64_t sizeb = ( *( ( frag* ) b ) ).cpp;
+    char* bega = ( *( ( frag* ) a ) ).begin;
+    char* begb = ( *( ( frag* ) b ) ).begin;
+    char* enda = ( *( ( frag* ) a ) ).end;
+    char* endb = ( *( ( frag* ) b ) ).end;
 
 
-    while ( sizea > 0 && sizeb > 0 && *( ptra + sizea ) == *( ptrb + sizeb ) )
+    while ( enda > bega && endb > begb && *enda == *endb )
     {
-        while ( !isalpha( *( ptra + sizea ) ) && sizea > 0 )
-            sizea--;
+        while ( !isalpha( *enda ) && enda > bega )
+            enda--;
 
-        while ( !isalpha( *( ptrb + sizeb ) ) && sizeb > 0 )
-            sizeb--;
+        while ( !isalpha( *endb ) && endb > enda )
+            endb--;
 
-        if ( sizea > 0 && sizeb > 0 &&
-             isalpha( *( ptra + sizea ) ) && isalpha( *( ptrb + sizeb ) ) &&
-             *( ptra + sizea ) == *( ptrb + sizeb ) )
+        if ( enda > bega && endb > begb &&
+             isalpha( *enda ) && isalpha( *endb ) &&
+             *enda == *endb )
         {
-            sizea--;
-            sizeb--;
+            enda--;
+            endb--;
         }
     }
 
-    if ( sizea <= 0 || sizeb <= 0 )
-        return *( ptra + sizea ) - *( ptrb + sizeb );
+    if ( enda <= bega || endb <= begb )
+        return *enda - *endb;
 
-    return tolower( *( ptra + sizea ) ) - tolower( *( ptrb + sizeb ) );
+    return tolower( *bega ) - tolower( *begb );
 }

@@ -12,10 +12,15 @@
 
 struct frag
 {
+    char* begin;
+    char* end;
+};
+
+struct poem
+{
     char* txt;
     uint64_t cpp;
 };
-
 
 
 uint64_t Getsize( const char* filename )
@@ -28,7 +33,7 @@ uint64_t Getsize( const char* filename )
 /**
  * @brief Counts amount of '\n' symbols in frag
  */
-int CountLines( struct frag text )
+int CountLines( struct poem text )
 {
     int count = 0;
     for ( int i = 1; i < text.cpp; i++ )
@@ -84,7 +89,7 @@ int ReadText_Separated( char **ind, size_t szInd, const char* filename )
  */
 struct poem ReadText_Buff( const char* filename )
 {
-    struct frag text = {};
+    struct poem text = {};
     int istream = open( filename, O_RDONLY );
     if ( !istream )
     {
@@ -109,7 +114,7 @@ struct poem ReadText_Buff( const char* filename )
  *
  * @return array of frag* where every variable is a data of a single line
  */
-struct frag* Sort( struct frag text )
+struct frag* Divide( struct poem text )
 {
     int count = CountLines( text );
     struct frag* lines = ( frag* ) calloc( count, sizeof( frag ) );
@@ -124,7 +129,7 @@ struct frag* Sort( struct frag text )
             size++;
         if ( ( size++ ) >= 1 )
         {
-            *( lines + real ) = { .txt = temp, .cpp = size };
+            *( lines + real ) = { .begin = temp, .end = temp + size };
             real++;
         }
         temp += size;
@@ -145,15 +150,7 @@ void puts_my( const char* a, FILE* ostream )
     assert( ostream );
 
     while ( *a != '\n' && *a )
-        switch (*(a++))
-            {
-            case '\n': printf ("\\n"); break;
-            case '\a': printf ("\\a"); break;
-            case '\t': printf ("\\t"); break;
-            case '\b': printf ("\\b"); break;
-            case '\r': printf ("\\r"); break;
-            default:   putc( *( a ), ostream );
-            }
+        putc( *( a++ ), ostream );
 
     putc( '\n', ostream );
 }
@@ -173,6 +170,6 @@ void Print_frag( struct frag* lines, uint64_t size, FILE* ostream )
     assert( ostream );
 
     for ( int i = 0; i < size; i++ )
-        puts_my( lines[ i ].txt, ostream );
+        puts_my( lines[ i ].begin, ostream );
 }
 

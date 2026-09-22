@@ -1,27 +1,33 @@
 var indexSectionsWithContent =
 {
-  0: "dmoprv",
-  1: "dmrv",
-  2: "mp",
-  3: "prv",
-  4: "o"
+  0: "abcdefghilmoprtuvwy",
+  1: "fp",
+  2: "cdmrtv",
+  3: "cdgmpr",
+  4: "bcet",
+  5: "bcghmruvwy",
+  6: "acfilmotvy"
 };
 
 var indexSectionNames =
 {
   0: "all",
-  1: "files",
-  2: "functions",
-  3: "defines",
-  4: "pages"
+  1: "classes",
+  2: "files",
+  3: "functions",
+  4: "variables",
+  5: "defines",
+  6: "pages"
 };
 
 var indexSectionLabels =
 {
   0: "All",
-  1: "Files",
-  2: "Functions",
-  3: "Macros",
-  4: "Pages"
+  1: "Classes",
+  2: "Files",
+  3: "Functions",
+  4: "Variables",
+  5: "Macros",
+  6: "Pages"
 };
 

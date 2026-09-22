@@ -14,10 +14,11 @@ enum Error
     Success = 0,
 };
 
+// #define getchar() fprintf( stderr, HRED " There could be your getchar\n" reset )
+
 int CallRec( void* array, int nElem, size_t szElem, int status, int middle,
              int ( *Comp )( const void*, const void* ) );
 
-// #define getchar() fprintf( stderr, HRED " There could be your getchar\n" reset )
 
 /**
  * @brief Swap values of 2 variables a and b
@@ -126,6 +127,7 @@ int Status( double* array, int Lind, int Rind, int nElem, int middle )
 int my_qsort( void* array, int nElem, size_t szElem, int ( *Comp )( const void*, const void* ) )
 {
     assert( array );
+    assert( Comp );
 
     int middle = nElem / 2, Lind = 0, Rind = nElem - 1;
     int status = 0;
@@ -212,6 +214,7 @@ int CallRec( void* array, int nElem, size_t szElem, int status, int middle,
              int ( *Comp )( const void*, const void* ) )
 {
     assert( array );
+    assert( Comp );
 
     // fprintf( stderr, HCYN "Starting new recursion level\n" reset );
     if ( status == Success && middle > 2 )

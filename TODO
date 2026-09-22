@@ -1,2 +1,2 @@
-//TODO add new struct for the whole buff, like frag , but add there variable, which will store amount of lines there
-//TODO add normal README
+//TODO add doxygen url into Readme
+//TODO add parsing func to input / output i/o stream files

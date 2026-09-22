@@ -25,7 +25,20 @@
 var NAVTREE =
 [
   [ "My Project", "index.html", [
-    [ "Onegin", "md__r_e_a_d_m_e.html", null ],
+    [ "Onegin", "md__r_e_a_d_m_e.html", [
+      [ "About", "md__r_e_a_d_m_e.html#autotoc_md1", [
+        [ "Abilities", "md__r_e_a_d_m_e.html#autotoc_md2", null ],
+        [ "To learn more about included functions you can visit", "md__r_e_a_d_m_e.html#autotoc_md3", null ]
+      ] ]
+    ] ],
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
+    ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
@@ -39,7 +52,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"debug_8cpp.html"
+"_colours_8h.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

@@ -8,7 +8,7 @@
 void PrintMicro( FILE* ostream )
 {
     assert( ostream );
-    struct frag oven = ReadText_Buff( "MicroWave.txt" );
+    struct poem oven = ReadText_Buff( "MicroWave.txt" );
     fprintf( ostream, "Our first participant, Oven: \n\n" );
     fprintf( ostream, "%s", oven.txt );
     fprintf( ostream, "Round!!\n\n LET'S MOVE ON TO THE NEXT PARTICIPANT\n\n");

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['main_2ecpp_0',['main.cpp',['../main_8cpp.html',1,'']]]
+  ['debug_2ecpp_0',['debug.cpp',['../debug_8cpp.html',1,'']]],
+  ['debug_2eh_1',['debug.h',['../debug_8h.html',1,'']]],
+  ['draft_2ecpp_2',['draft.cpp',['../draft_8cpp.html',1,'']]]
 ];

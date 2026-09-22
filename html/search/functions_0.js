@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../draft_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;draft.cpp'],['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;main.cpp']]]
+  ['countlines_0',['CountLines',['../textfunc_8cpp.html#aefa071ef1412fce66ac158dc4af95d50',1,'CountLines(struct poem text):&#160;textfunc.cpp'],['../textfunc_8h.html#aefa071ef1412fce66ac158dc4af95d50',1,'CountLines(struct poem text):&#160;textfunc.cpp']]]
 ];
