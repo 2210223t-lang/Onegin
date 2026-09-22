@@ -7,7 +7,7 @@
 #include "../debug.h"
 
 /// Holds info about some text, stored in string
-struct poem
+struct frag
 {
     char* txt; //< Pointer to a beginning of text
     uint64_t cpp; //< Size of useful data ( in bytes )
@@ -99,17 +99,17 @@ int cmpstringDOWN( const void* a, const void* b )
 }
 
 /**
- * @brief cmpstringDOWN function, which takes ( struct poem ) variables
+ * @brief cmpstringDOWN function, which takes ( struct frag ) variables
  */
-int cmpstringDOWN_poem( const void* a, const void* b )
+int cmpstringDOWN_frag( const void* a, const void* b )
 {
     assert( a );
     assert( b );
 
-    char* ptra = ( *( ( poem* ) a ) ).txt;
-    char* ptrb = ( *( ( poem* ) b ) ).txt;
-    uint64_t sizea = ( *( ( poem* ) a ) ).cpp - 1;
-    uint64_t sizeb = ( *( ( poem* ) b ) ).cpp - 1;
+    char* ptra = ( *( ( frag* ) a ) ).txt;
+    char* ptrb = ( *( ( frag* ) b ) ).txt;
+    uint64_t sizea = ( *( ( frag* ) a ) ).cpp - 1;
+    uint64_t sizeb = ( *( ( frag* ) b ) ).cpp - 1;
 
     while ( sizea > 0 && sizeb > 0 )
     {
@@ -189,17 +189,17 @@ int MC_PUSHKIN( const void* a, const void* b )
 }
 
 /**
- * @brief Compares string part of a and b ( struct poem ) variables from the last letter
+ * @brief Compares string part of a and b ( struct frag ) variables from the last letter
  */
-int MC_PUSHKIN_poem( const void* a, const void* b )
+int MC_PUSHKIN_frag( const void* a, const void* b )
 {
     assert( a );
     assert( b );
 
-    char* ptra = ( *( ( poem* ) a ) ).txt;
-    char* ptrb = ( *( ( poem* ) b ) ).txt;
-    uint64_t sizea = ( *( ( poem* ) a ) ).cpp;
-    uint64_t sizeb = ( *( ( poem* ) b ) ).cpp;
+    char* ptra = ( *( ( frag* ) a ) ).txt;
+    char* ptrb = ( *( ( frag* ) b ) ).txt;
+    uint64_t sizea = ( *( ( frag* ) a ) ).cpp;
+    uint64_t sizeb = ( *( ( frag* ) b ) ).cpp;
 
 
     while ( sizea > 0 && sizeb > 0 && *( ptra + sizea ) == *( ptrb + sizeb ) )
@@ -210,7 +210,9 @@ int MC_PUSHKIN_poem( const void* a, const void* b )
         while ( !isalpha( *( ptrb + sizeb ) ) && sizeb > 0 )
             sizeb--;
 
-        if ( sizea > 0 && sizeb > 0 && isalpha( *( ptra + sizea ) ) && isalpha( *( ptrb + sizeb ) ) && *( ptra + sizea ) == *( ptrb + sizeb ) )
+        if ( sizea > 0 && sizeb > 0 &&
+             isalpha( *( ptra + sizea ) ) && isalpha( *( ptrb + sizeb ) ) &&
+             *( ptra + sizea ) == *( ptrb + sizeb ) )
         {
             sizea--;
             sizeb--;
@@ -219,5 +221,6 @@ int MC_PUSHKIN_poem( const void* a, const void* b )
 
     if ( sizea <= 0 || sizeb <= 0 )
         return *( ptra + sizea ) - *( ptrb + sizeb );
+
     return tolower( *( ptra + sizea ) ) - tolower( *( ptrb + sizeb ) );
 }

@@ -9,7 +9,7 @@ int cmplonglongUP( const void* a, const void* b );
 int cmpfloatUP( const void* a, const void* b );
 int cmpdoubleUP( const void* a, const void* b );
 int MC_PUSHKIN( const void* a, const void* b );
-int MC_PUSHKIN_poem( const void* a, const void* b );
-int cmpstringDOWN_poem( const void* a, const void* b );
+int MC_PUSHKIN_frag( const void* a, const void* b );
+int cmpstringDOWN_frag( const void* a, const void* b );
 
 #endif // COMP_H

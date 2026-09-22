@@ -2,63 +2,49 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#include "Colours.h"
 #include "Qsort/Qsort.h"
-#include "debug.h"
-#include "textfunc.h"
 #include "Qsort/comp.h"
 #include "versus.h"
-#include "Colours.h"
+#include "textfunc.h"
+#include "debug.h"
 
-
-void puts_my( const char* a, FILE* ostream )
-{
-    assert( ostream );
-
-    while ( *a != '\n' && *a )
-        putc( *( a++ ), ostream );
-    putc( '\n', ostream );
-}
-
-void Print_poem( poem* lines, uint64_t size, FILE* ostream )
-{
-    assert( lines );
-    assert( ostream );
-
-    for ( int i = 0; i < size; i++ )
-        puts_my( lines[ i ].txt, ostream );
-}
 
 int main()
 {
-    FILE* output = fopen( "output.txt", "w" );
-    assert( output );
+    char oputfile[] = "output.txt";
+    FILE* ostream = fopen( oputfile, "w" );
+    if ( !ostream )
+    {
+        fprintf( stderr, "Failed to open %s in %s", oputfile, __func__ );
+        return 0;
+    }
 
-    struct poem line = ReadText_Buff( "pushkin.txt" );
-    struct poem* lines = Sort( line );
+    struct frag line = ReadText_Buff( "pushkin.txt" );
+    struct frag* lines = Sort( line );
     int count = CountLines( line );
+
     // fprintf( stderr, "Count = %d\n", count );
 
-    my_qsort( lines, count, sizeof( poem ), cmpstringDOWN_poem );
+    my_qsort( lines, count, sizeof( frag ), cmpstringDOWN_frag );
     // fprintf( stderr, "Passed 1st my_qsort\n" );
-    Print_poem( lines, count, output );
+    Print_frag( lines, count, ostream );
     // fprintf( stderr, "Printed 1st text into output.txt\n" );
-    fprintf( output, VERSUS_START );
+    fprintf( ostream, VERSUS_START );
 
-    PrintMicro( output );
+    PrintMicro( ostream );
 
-    qsort( lines, count, sizeof( poem ), MC_PUSHKIN_poem );
+    qsort( lines, count, sizeof( frag ), MC_PUSHKIN_frag );
     // fprintf( stderr, "Passed std qsort\n" );
-    Print_poem( lines, count, output );
+    Print_frag( lines, count, ostream );
     // fprintf( stderr, "Printed 2nd text into output.txt\n" );
-    fprintf( output, VERSUS_FINAL );
+    fprintf( ostream, VERSUS_FINAL );
 
-    fprintf( output, "\n-----\n\n" );
-
-    fprintf( output, "%s", line.txt );
+    fprintf( ostream, "%s", line.txt );
     // fprintf( stderr, "Printed original text" );
 
     free( line.txt );
     free( lines );
-    fclose( output );
+    fclose( ostream );
     return 0;
 }

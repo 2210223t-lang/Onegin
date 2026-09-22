@@ -1,1 +1,2 @@
-//TODO fix separate recursion call in my_qsort
+//TODO add new struct for the whole buff, like frag , but add there variable, which will store amount of lines there
+//TODO add normal README
