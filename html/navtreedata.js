@@ -24,11 +24,14 @@
 */
 var NAVTREE =
 [
-  [ "My Project", "index.html", [
+  [ "Onegin", "index.html", [
     [ "Onegin", "md__r_e_a_d_m_e.html", [
       [ "About", "md__r_e_a_d_m_e.html#autotoc_md1", [
         [ "Abilities", "md__r_e_a_d_m_e.html#autotoc_md2", null ],
-        [ "To learn more about included functions you can visit", "md__r_e_a_d_m_e.html#autotoc_md3", null ]
+        [ "Terminal commands", "md__r_e_a_d_m_e.html#autotoc_md3", null ]
+      ] ],
+      [ "Tech", "md__r_e_a_d_m_e.html#autotoc_md4", [
+        [ "To learn more about included functions you can check Doxygen - generated documentation in Github-pages", "md__r_e_a_d_m_e.html#autotoc_md5", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [

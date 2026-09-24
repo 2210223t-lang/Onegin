@@ -1,6 +1,6 @@
 # Onegin
 ## About
-This repo provides users with abuluty to sort text either from .txt file, or any other streams.
+This repo provides users with ability to sort text either from .txt file, or any other streams.
 
 ### Abilities
 Also in the file you can find other essential functions for
@@ -15,9 +15,15 @@ Also in the file you can find other essential functions for
 4. Sort text, starting with the end of lines with
 > int MC_PUSHKIN( const void* a, const void* b );
 
+### Terminal commands
+
+1. -input 'filename' Changes input stream to mentioned file
+
+2. -output 'filename' Changes output stream to mentioned file
+
 ## Tech
 
-1. MC_PUSHKIN function and MC_PUSHKIN_frag functions compare lines, starting from their end. ( Compare only letters and ignore other sybmols )
+1. MC_PUSHKIN function and MC_PUSHKIN_frag functions compare lines, starting from their end. ( Compare only letters and ignore other symbols )
 
 2. cmpstringDOWN and cmpstringDOWN_frag functions compare lines, starting from their beginning ( Also they cmp only letters and ignore other symbols )
 
@@ -27,7 +33,7 @@ Also in the file you can find other essential functions for
 
 5. Qsort folder contains custom qsort function and some essential comparators
 
-### To learn more about included functions you can check Doxygen - generated documentation
+### To learn more about included functions you can check Doxygen - generated documentation in Github-pages
 
 
 

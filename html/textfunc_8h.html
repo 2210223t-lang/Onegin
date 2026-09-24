@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: textfunc.h File Reference</title>
+<title>Onegin: textfunc.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">My Project
+   <div id="projectname">Onegin
    </div>
   </td>
  </tr>
@@ -121,24 +121,23 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a11cdba328da812ed80b8671de57430fe" id="r_a11cdba328da812ed80b8671de57430fe"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a11cdba328da812ed80b8671de57430fe">ReadText_Separated</a> (char **ind, size_t szInd, const char *filename)</td></tr>
-<tr class="memdesc:a11cdba328da812ed80b8671de57430fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read text from .txt file into many different arrays.  <br /></td></tr>
-<tr class="memitem:a143b3c83a5f95a44a448c23892bb7fc2" id="r_a143b3c83a5f95a44a448c23892bb7fc2"><td class="memItemLeft">struct <a class="el" href="structpoem.html">poem</a>&#160;</td><td class="memItemRight"><a class="el" href="#a143b3c83a5f95a44a448c23892bb7fc2">ReadText_Buff</a> (const char *filename)</td></tr>
-<tr class="memdesc:a143b3c83a5f95a44a448c23892bb7fc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads text into one buff.  <br /></td></tr>
-<tr class="memitem:af709906bcd1ebf37782eab8b18a08a78" id="r_af709906bcd1ebf37782eab8b18a08a78"><td class="memItemLeft">struct <a class="el" href="structfrag.html">frag</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af709906bcd1ebf37782eab8b18a08a78">Divide</a> (struct <a class="el" href="structpoem.html">poem</a> text)</td></tr>
-<tr class="memdesc:af709906bcd1ebf37782eab8b18a08a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorts text data into different lines.  <br /></td></tr>
-<tr class="memitem:aefa071ef1412fce66ac158dc4af95d50" id="r_aefa071ef1412fce66ac158dc4af95d50"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aefa071ef1412fce66ac158dc4af95d50">CountLines</a> (struct <a class="el" href="structpoem.html">poem</a> text)</td></tr>
-<tr class="memdesc:aefa071ef1412fce66ac158dc4af95d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts amount of '<br  />
+<tr class="memitem:a8cf993347f6f25cd70308a929e450ee7" id="r_a8cf993347f6f25cd70308a929e450ee7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8cf993347f6f25cd70308a929e450ee7">ReadText_Separated</a> (const char **ind, const size_t szInd, const char *filename)</td></tr>
+<tr class="memitem:a766b12927286bf71204942f68a80b191" id="r_a766b12927286bf71204942f68a80b191"><td class="memItemLeft">struct <a class="el" href="structpoem.html">poem</a>&#160;</td><td class="memItemRight"><a class="el" href="#a766b12927286bf71204942f68a80b191">ReadText_Buff</a> (const int istream, const char *filename)</td></tr>
+<tr class="memdesc:a766b12927286bf71204942f68a80b191"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads text into one buff.  <br /></td></tr>
+<tr class="memitem:aaac054b188b63c9e4800dfae3ddfaf94" id="r_aaac054b188b63c9e4800dfae3ddfaf94"><td class="memItemLeft">struct <a class="el" href="structfrag.html">frag</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aaac054b188b63c9e4800dfae3ddfaf94">Divide</a> (const struct <a class="el" href="structpoem.html">poem</a> text)</td></tr>
+<tr class="memdesc:aaac054b188b63c9e4800dfae3ddfaf94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorts text data into different lines.  <br /></td></tr>
+<tr class="memitem:a4f270d51804a3c75675265cabe835fa1" id="r_a4f270d51804a3c75675265cabe835fa1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4f270d51804a3c75675265cabe835fa1">CountLines</a> (const struct <a class="el" href="structpoem.html">poem</a> text)</td></tr>
+<tr class="memdesc:a4f270d51804a3c75675265cabe835fa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts amount of '<br  />
 ' symbols in frag.  <br /></td></tr>
 <tr class="memitem:a3cc254d608baf3d0ea41fdf6a0e79e9d" id="r_a3cc254d608baf3d0ea41fdf6a0e79e9d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3cc254d608baf3d0ea41fdf6a0e79e9d">puts_my</a> (const char *a, FILE *ostream)</td></tr>
 <tr class="memdesc:a3cc254d608baf3d0ea41fdf6a0e79e9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print string till 1st '<br  />
 '.  <br /></td></tr>
-<tr class="memitem:acdf709f670a84aaedd19322372f910ab" id="r_acdf709f670a84aaedd19322372f910ab"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acdf709f670a84aaedd19322372f910ab">Print_frag</a> (struct <a class="el" href="structfrag.html">frag</a> *lines, uint64_t size, FILE *ostream)</td></tr>
-<tr class="memdesc:acdf709f670a84aaedd19322372f910ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints text from array of ( struct frag ).  <br /></td></tr>
+<tr class="memitem:ae7b9fe8761fea65196ad66ce57fceb45" id="r_ae7b9fe8761fea65196ad66ce57fceb45"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae7b9fe8761fea65196ad66ce57fceb45">Print_poem</a> (const struct <a class="el" href="structfrag.html">frag</a> *lines, const uint64_t size, FILE *ostream)</td></tr>
+<tr class="memdesc:ae7b9fe8761fea65196ad66ce57fceb45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints text from array of ( struct frag ).  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="aefa071ef1412fce66ac158dc4af95d50" name="aefa071ef1412fce66ac158dc4af95d50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefa071ef1412fce66ac158dc4af95d50">&#9670;&#160;</a></span>CountLines()</h2>
+<a id="a4f270d51804a3c75675265cabe835fa1" name="a4f270d51804a3c75675265cabe835fa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f270d51804a3c75675265cabe835fa1">&#9670;&#160;</a></span>CountLines()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,7 +145,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int CountLines </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structpoem.html">poem</a></td>          <td class="paramname"><span class="paramname"><em>text</em></span></td><td>)</td>
+          <td class="paramtype">const struct <a class="el" href="structpoem.html">poem</a></td>          <td class="paramname"><span class="paramname"><em>text</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -157,8 +156,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af709906bcd1ebf37782eab8b18a08a78" name="af709906bcd1ebf37782eab8b18a08a78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af709906bcd1ebf37782eab8b18a08a78">&#9670;&#160;</a></span>Divide()</h2>
+<a id="aaac054b188b63c9e4800dfae3ddfaf94" name="aaac054b188b63c9e4800dfae3ddfaf94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaac054b188b63c9e4800dfae3ddfaf94">&#9670;&#160;</a></span>Divide()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,7 +165,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">struct <a class="el" href="structfrag.html">frag</a> * Divide </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structpoem.html">poem</a></td>          <td class="paramname"><span class="paramname"><em>text</em></span></td><td>)</td>
+          <td class="paramtype">const struct <a class="el" href="structpoem.html">poem</a></td>          <td class="paramname"><span class="paramname"><em>text</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -183,21 +182,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="acdf709f670a84aaedd19322372f910ab" name="acdf709f670a84aaedd19322372f910ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdf709f670a84aaedd19322372f910ab">&#9670;&#160;</a></span>Print_frag()</h2>
+<a id="ae7b9fe8761fea65196ad66ce57fceb45" name="ae7b9fe8761fea65196ad66ce57fceb45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7b9fe8761fea65196ad66ce57fceb45">&#9670;&#160;</a></span>Print_poem()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Print_frag </td>
+          <td class="memname">void Print_poem </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structfrag.html">frag</a> *</td>          <td class="paramname"><span class="paramname"><em>lines</em></span>, </td>
+          <td class="paramtype">const struct <a class="el" href="structfrag.html">frag</a> *</td>          <td class="paramname"><span class="paramname"><em>lines</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+          <td class="paramtype">const uint64_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -250,8 +249,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a143b3c83a5f95a44a448c23892bb7fc2" name="a143b3c83a5f95a44a448c23892bb7fc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a143b3c83a5f95a44a448c23892bb7fc2">&#9670;&#160;</a></span>ReadText_Buff()</h2>
+<a id="a766b12927286bf71204942f68a80b191" name="a766b12927286bf71204942f68a80b191"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a766b12927286bf71204942f68a80b191">&#9670;&#160;</a></span>ReadText_Buff()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,8 +258,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">struct <a class="el" href="structpoem.html">poem</a> ReadText_Buff </td>
           <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>istream</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>filename</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -276,8 +279,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a11cdba328da812ed80b8671de57430fe" name="a11cdba328da812ed80b8671de57430fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11cdba328da812ed80b8671de57430fe">&#9670;&#160;</a></span>ReadText_Separated()</h2>
+<a id="a8cf993347f6f25cd70308a929e450ee7" name="a8cf993347f6f25cd70308a929e450ee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cf993347f6f25cd70308a929e450ee7">&#9670;&#160;</a></span>ReadText_Separated()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,12 +288,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int ReadText_Separated </td>
           <td>(</td>
-          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>ind</em></span>, </td>
+          <td class="paramtype">const char **</td>          <td class="paramname"><span class="paramname"><em>ind</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>szInd</em></span>, </td>
+          <td class="paramtype">const size_t</td>          <td class="paramname"><span class="paramname"><em>szInd</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -299,17 +302,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Read text from .txt file into many different arrays. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ind</td><td>char** is a pointer to a beginning of a 2d array of lines</td></tr>
-    <tr><td class="paramname">szInd</td><td>size_t max amount of lines</td></tr>
-    <tr><td class="paramname">filename</td><td>char* name of the file, where from to read lines</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>amount of stored lines </dd></dl>
 
 </div>
 </div>

@@ -13,11 +13,11 @@ struct poem
     uint64_t cpp;
 };
 
-int ReadText_Separated( char **ind, size_t szInd, const char* filename );
-struct poem ReadText_Buff( const char* filename );
-struct frag* Divide( struct poem text );
-int CountLines( struct poem text );
+int ReadText_Separated( const char **ind, const size_t szInd, const char* filename );
+struct poem ReadText_Buff( const int istream, const char* filename );
+struct frag* Divide( const struct poem text );
+int CountLines( const struct poem text );
 void puts_my( const char* a, FILE* ostream );
-void Print_frag( struct frag* lines, uint64_t size, FILE* ostream );
+void Print_poem( const struct frag* lines, const uint64_t size, FILE* ostream );
 
 #endif // TEXTFUNC_H

@@ -26,19 +26,23 @@ struct poem
 uint64_t Getsize( const char* filename )
 {
     struct stat a = {};
+
     stat( filename, &a );
+
     return a.st_size;
 }
 
 /**
  * @brief Counts amount of '\n' symbols in frag
  */
-int CountLines( struct poem text )
+int CountLines( const struct poem text )
 {
     int count = 0;
+
     for ( int i = 1; i < text.cpp; i++ )
         if ( text.txt[ i ] == '\n' && text.txt[ i - 1 ] != '\n' )
             count++;
+
     return count;
 }
 
@@ -53,11 +57,11 @@ int CountLines( struct poem text )
  *
  * @return amount of stored lines
  */
-int ReadText_Separated( char **ind, size_t szInd, const char* filename )
+int ReadText_Separated( char **ind, const size_t szInd, const char* filename )
 {
     assert( ind );
     char* temp = NULL;
-    size_t lenght = 0;
+    size_t length = 0;
     size_t count = 0;
     int keepgoing = 0;
     FILE* istream = fopen( filename, "r" );
@@ -71,9 +75,9 @@ int ReadText_Separated( char **ind, size_t szInd, const char* filename )
     while( keepgoing != EOF && count < szInd )
     {
         temp = NULL;
-        lenght = 0;
+        length = 0;
 
-        if ( ( keepgoing = getline( &temp, &lenght, istream ) ) != EOF && *temp != '\n' )
+        if ( ( keepgoing = getline( &temp, &length, istream ) ) != EOF && *temp != '\n' )
                 ind[ count++ ] =  temp;
     }
     fclose( istream );
@@ -87,16 +91,16 @@ int ReadText_Separated( char **ind, size_t szInd, const char* filename )
  *
  * @return struct frag, which contains size and pointer to the text, stored in one string
  */
-struct poem ReadText_Buff( const char* filename )
+struct poem ReadText_Buff( const int istream, const char* filename )
 {
+    assert( filename );
+
+    // fprintf( stderr, "%s\n", filename );
+
     struct poem text = {};
-    int istream = open( filename, O_RDONLY );
-    if ( !istream )
-    {
-        fprintf( stderr, "Failed to open %s in %s\n", filename, __func__ );
-        abort();
-    }
+
     text.cpp = Getsize( filename );
+
 
     text.txt = ( char* ) calloc( text.cpp, sizeof( char ) );
 
@@ -114,7 +118,7 @@ struct poem ReadText_Buff( const char* filename )
  *
  * @return array of frag* where every variable is a data of a single line
  */
-struct frag* Divide( struct poem text )
+struct frag* Divide( const struct poem text )
 {
     int count = CountLines( text );
     struct frag* lines = ( frag* ) calloc( count, sizeof( frag ) );
@@ -164,7 +168,7 @@ void puts_my( const char* a, FILE* ostream )
  *
  * @param ostream FILE* where data would be printed
  */
-void Print_frag( struct frag* lines, uint64_t size, FILE* ostream )
+void Print_poem( const struct frag* lines, const  uint64_t size, FILE* ostream )
 {
     assert( lines );
     assert( ostream );
@@ -172,4 +176,3 @@ void Print_frag( struct frag* lines, uint64_t size, FILE* ostream )
     for ( int i = 0; i < size; i++ )
         puts_my( lines[ i ].begin, ostream );
 }
-

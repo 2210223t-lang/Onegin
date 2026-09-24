@@ -1,2 +1,8 @@
-//TODO add doxygen url into Readme
 //TODO add parsing func to input / output i/o stream files
+//TODO avoid dynamic data usage in OpenCheck func
+//TODO add PATH_MAX
+
+Questions
+1. What to do with variable - sized filename input ( dynamic or defined max - sized char* )
+2. Can i leave FILE* output , 'cause it's a bit more complicated to output by descriptor
+3.

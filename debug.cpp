@@ -7,6 +7,7 @@ void puts_debug( const char* a, FILE* ostream )
     assert( ostream );
 
     while ( *a != '\n' && *a )
+
         switch ( *( a++ ) )
             {
             case '\n': printf ( "\\n" ); break;

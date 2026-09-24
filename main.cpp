@@ -1,8 +1,11 @@
+#include <cstddef>
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
 #include "Colours.h"
+#include "CommandLine/Terminal.h"
 #include "Qsort/Qsort.h"
 #include "Qsort/comp.h"
 #include "versus.h"
@@ -10,41 +13,42 @@
 #include "debug.h"
 
 
-int main()
+int main( int argc, char** argv )
 {
-    char oputfile[] = "output.txt";
-    FILE* ostream = fopen( oputfile, "w" );
-    if ( !ostream )
-    {
-        fprintf( stderr, "Failed to open %s in %s", oputfile, __func__ );
-        return 0;
-    }
+    struct stream InAndOut ={};
+    Terminal( argc, argv, InAndOut.istream_name, InAndOut.ostream_name );
 
-    struct poem line = ReadText_Buff( "pushkin.txt" );
+    int status = OpenCheck( &InAndOut );
+
+    if ( status != Success )
+        return 1;
+
+    struct poem line = ReadText_Buff( InAndOut.istream, InAndOut.istream_name );
+
     struct frag* lines = Divide( line );
     int count = CountLines( line );
 
     fprintf( stderr, "Count = %d\n", count );
 
     my_qsort( lines, count, sizeof( frag ), cmpstringDOWN_frag );
-    // fprintf( stderr, "Passed 1st my_qsort\n" );
-    Print_frag( lines, count, ostream );
-    // fprintf( stderr, "Printed 1st text into output.txt\n" );
-    fprintf( ostream, VERSUS_START );
 
-    PrintMicro( ostream );
+    Print_poem( lines, count, InAndOut.ostream );
+
+    fprintf( InAndOut.ostream, VERSUS_START );
+
+    PrintMicro( InAndOut.ostream );
 
     qsort( lines, count, sizeof( frag ), MC_PUSHKIN_frag );
-    // fprintf( stderr, "Passed std qsort\n" );
-    Print_frag( lines, count, ostream );
-    // fprintf( stderr, "Printed 2nd text into output.txt\n" );
-    fprintf( ostream, VERSUS_FINAL );
 
-    fprintf( ostream, "%s", line.txt );
-    fprintf( stderr, "Printed original text" );
+    Print_poem( lines, count, InAndOut.ostream );
+
+    fprintf( InAndOut.ostream, VERSUS_FINAL );
+
+    fprintf( InAndOut.ostream, "%s", line.txt );
+
 
     free( line.txt );
-    free( lines );
-    fclose( ostream );
+    fclose( InAndOut.ostream );
     return 0;
 }
+

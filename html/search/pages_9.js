@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['you_20can_20visit_0',['To learn more about included functions you can visit',['../md__r_e_a_d_m_e.html#autotoc_md3',1,'']]]
+  ['pages_0',['To learn more about included functions you can check Doxygen - generated documentation in Github-pages',['../md__r_e_a_d_m_e.html#autotoc_md5',1,'']]]
 ];
