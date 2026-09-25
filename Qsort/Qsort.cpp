@@ -5,16 +5,10 @@
 
 #include "../Colours.h"
 #include "../debug.h"
-
-enum Error
-{
-    LindLeapfrog = 14,
-    RindLeapfrog = 15,
-    QsortError = 16,
-    Success = 0,
-};
+#include "../Stuff.h"
 
 // #define getchar() fprintf( stderr, HRED " There could be your getchar\n" reset )
+
 
 int CallRec( void* array, int nElem, size_t szElem, int status, int middle,
              int ( *Comp )( const void*, const void* ) );

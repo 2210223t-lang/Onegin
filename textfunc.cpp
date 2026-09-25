@@ -6,21 +6,11 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/mman.h>
 
 #include "debug.h"
 #include "Colours.h"
-
-struct frag
-{
-    char* begin;
-    char* end;
-};
-
-struct poem
-{
-    char* txt;
-    uint64_t cpp;
-};
+#include "textfunc.h"
 
 
 uint64_t Getsize( const char* filename )
@@ -175,4 +165,19 @@ void Print_poem( const struct frag* lines, const  uint64_t size, FILE* ostream )
 
     for ( int i = 0; i < size; i++ )
         puts_my( lines[ i ].begin, ostream );
+}
+
+
+struct poem ReadText_mmap( const int istream, const char* filename )
+{
+    uint64_t size = Getsize( filename );
+    char* input = ( char* ) mmap( 0, size, PROT_READ, MAP_SHARED, istream, 0 );
+
+    if ( input == MAP_FAILED )
+    {
+        fprintf( stderr, HRED "Map failure\n" reset );
+        return { .txt = NULL, .cpp = 0 };
+    }
+
+    return { .txt = input, .cpp = size };
 }

@@ -5,13 +5,7 @@
 #include <assert.h>
 
 #include "../debug.h"
-
-/// Holds info about some text, stored in string
-struct frag
-{
-    char* begin; //< Pointer to a beginning of text
-    char* end; //< Pointer to the end of the text
-};
+#include "../Stuff.h"
 
 /// Defines inaccuracy for double and float comparing
 #define EPSI 0.000001

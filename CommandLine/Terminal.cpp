@@ -7,62 +7,66 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <limits.h>
+#include <unistd.h>
+#include <sys/mman.h>
 
 #include "../debug.h"
 #include "COTexGetopt.h"
+#include "../Stuff.h"
 
-enum Getoptdef
-{
-    INPUT = 10,
-    OUTPUT = 11,
-    InAndOut = 12,
-};
-
-enum Error
-{
-    Too_Many_Attempts = -20,
-    Getopt_Failure = -25,
-    Success = 0,
-};
-
-struct stream
-{
-    char istream_name[ PATH_MAX ];
-    int istream;
-    char ostream_name[ PATH_MAX ];
-    FILE* ostream;
-};
 
 /// defines how many mistakes the user can make during inputting wrong filename
 #define MAX_MISTAKES 3
 
-
-void Terminal( int argc, char** argv, char* input, char* output )
+/**
+ * @brief Parses command line arguments and checks input
+ *
+ * @param[ in ] argc - std argc
+ *
+ * @param[ in ] argv - std argv
+ *
+ * @param[ out ] input char[ PATH_MAX ] - name of input filestream
+ *
+ * @param[ out ] output char[ PATH_MAX ] - name of output filestream
+ */
+int Terminal( int argc, char** argv, char input[ PATH_MAX ], char output[ PATH_MAX ] )
 {
     assert( argv );
     assert( input );
     assert( output );
 
-    strcpy( input, "pushkin.txt" );
-    strcpy( output, "output.txt" );
+    strcpy( input, "Texts/pushkin.txt" );
+    strcpy( output, "Texts/output.txt" );
 
-    struct COTexOption long_options[] = { {  "input", required_argument, 0,  'i' },
-                                     { "output", required_argument, 0,  'o' },
-                                     {        0,                 0, 0,   0 } };
+    struct option long_options[] = { {  "input", required_argument, 0, 'i' },
+                                     { "output", required_argument, 0, 'o' },
+                                     {   "mmap",       no_argument, 0, 'm' },
+                                     {   "buff",       no_argument, 0, 'b' },
+                                     {        0,                 0, 0,  0 } };
 
     int check = 0;
     bool keepgoing = true;
+    int retval = 'm'; /// Defines original running mode
 
-    while ( keepgoing && ( check = COTexGetopt_long_only( argc, argv, long_options, NULL ) ) != -1 )
+    while ( keepgoing && ( check = getopt_long_only( argc, argv, "io", long_options, NULL ) ) != -1 )
     {
 
         switch ( check )
         {
-            case 'i':
-                strcpy( input, COTexoptarg );
+            case 'm':
+                retval = 'm';
                 break;
+
+            case 'b':
+                retval = 'b';
+                break;
+
+            case 'i':
+                strcpy( input, optarg );
+                break;
+
             case 'o':
-                strcpy( output, COTexoptarg );
+                strcpy( output, optarg );
                 break;
 
             case '?':
@@ -75,30 +79,21 @@ void Terminal( int argc, char** argv, char* input, char* output )
         }
     }
     // fprintf( stderr, "Output filename - %s\nInput filename - %s\n", output, input );
-
+    return retval;
 }
 
 /**
  * @brief Checks either files were open correctly or not
  */
-int OpenCheck( struct stream* InAndOut )
+int OpenCheck( struct iostream* InAndOut )
 {
     assert( InAndOut );
 
     char buff[ PATH_MAX ] = "";
     int mistCount = MAX_MISTAKES;
 
-    InAndOut->ostream = fopen( InAndOut->ostream_name, "w" );
     InAndOut->istream = open( InAndOut->istream_name, O_RDONLY );
-
-    while ( !InAndOut->ostream && mistCount > 0 )
-    {
-        printf( "You enterred wrong filename for output: %s can't be opened, try to enter again: ", InAndOut->ostream_name );
-        scanf( "%s", buff );
-        InAndOut->ostream = fopen( buff, "w" );
-        strcpy( InAndOut->ostream_name, buff );
-        mistCount--;
-    }
+    InAndOut->ostream = fopen( InAndOut->ostream_name, "w" );
 
     while ( InAndOut->istream == -1 && mistCount > 0 )
     {
@@ -110,7 +105,14 @@ int OpenCheck( struct stream* InAndOut )
         mistCount--;
     }
 
-
+    while ( !InAndOut->ostream && mistCount > 0 )
+    {
+        printf( "You enterred wrong filename for output: %s can't be opened, try to enter again: ", InAndOut->ostream_name );
+        scanf( "%s", buff );
+        InAndOut->ostream = fopen( buff, "w" );
+        strcpy( InAndOut->ostream_name, buff );
+        mistCount--;
+    }
 
     if ( mistCount <= 0 )
     {

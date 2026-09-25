@@ -43,8 +43,8 @@ bool CheckCommand( char* Command, const char* Flag )
     return true;
 }
 
-char* COTexoptarg = 0; ///< Custom analogue of a standart optarg variable
-int COTexoptind = 0; ///< Custom analogue of a standart optind variable
+// char* COTexoptarg = 0; ///< Custom analogue of a standart optarg variable
+// int COTexoptind = 0; ///< Custom analogue of a standart optind variable
 
 int COTexGetopt_long_only( int argc, char* argv[], struct COTexOption* long_options, int* index )
 {
